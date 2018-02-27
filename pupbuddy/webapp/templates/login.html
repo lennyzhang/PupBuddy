@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	{% load staticfiles %}
+	<link rel="shortcut icon" href="{% static 'image/icon.png' %}">
+	<!-- icon.png cortesy to iconfinder.com -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Log In</title>
+	
+	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+	<link href="{% static 'css/pupbuddy.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+	<nav class=" navbar navbar-default navbar-fixed-top" style="border:0px;background-color:rgb(60,141,188);height:70px;">
+
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle active" data-toggle="collapse"
+				data-target="#navbar" style="border:0px;margin-top:15px;">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+			<a class="navbar-brand" href="#"><h4 style="color:white;font-weight:900;">PupBuddy</h4></a>
+			</div>
+
+			<div id="navbar" class="collapse navbar-collapse navbar-right">
+				<ul class="nav navbar-nav">
+				</ul>
+			</div>
+			
+		</div>
+
+	</nav>
+
+	<div class="container">
+		<div class="row" style="margin-top:100px;">	
+			<div class="col-lg-4 col-lg-offset-4 col-sm-4 col-sm-offset-4">
+      			<form action="{% url 'main' %}">
+        			<h2 style="margin-bottom:20px;">Please Sign in</h2>
+        			<input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
+        			<br/>
+        			<input type="password" name="password" class="form-control" placeholder="Password" required>
+        			<br/>
+        			<a href="{% url 'main' %}" style="padding-bottom:20px;"><p>New to PupBuddy? Register here!</p></a>
+        			<button id="button-color" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        			{% csrf_token %}
+      			</form>
+      		</div>
+      	</div>
+    </div>
+
+<script src="{% static 'js/jQuery-2.1.4.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>

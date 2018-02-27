@@ -1,0 +1,40 @@
+@media (min-width:768px) {
+	.expansion{
+		position:relative;
+	}
+	.expansion::after{
+		content:'';
+		display:block;
+		width:70%;
+		height:3px;
+		position:absolute;
+		bottom:20px;
+		background:#ffffff;
+		transition:all 0.3s ease-in-out;
+		transform: scale3d(0,1,1);
+		transform-origin:50% 0;
+	}
+	.expansion:hover::after{
+		transform:scale3d(1,1,1);
+	}
+}
+@media (max-width:767px) {
+	.navbar-nav {
+		background-color:rgb(60,141,188);
+	}
+}
+#color-change{
+	color:white;
+	transition:color 0.3s ease-in-out;
+}
+#color-change:hover{
+	color:rgb(180,180,180);
+}
+.profile-link{
+	color:black;
+	transition:color 0.3s ease-in-out;
+}
+.profile-link:hover{
+	color:grey;
+	text-decoration:none;
+}
