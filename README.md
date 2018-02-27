@@ -1,1 +1,1 @@
-# multiagent-path-planning
+# PupBuddy
