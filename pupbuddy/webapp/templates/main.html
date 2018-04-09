@@ -43,25 +43,217 @@
 	<div class="container" style="padding-top:100px;">
 		<div class="row">
 			<div class="col-lg-5 col-lg-offset-1" style="border-style:solid;border-color:black;border-width:5px;height:400px;text-align:center;">
-				<h2 style="padding-top:150px;">Video streaming goes here...</h2>
+				<h2 style="padding-top:100px;padding-bottom:30px;">Video streaming goes here...</h2>
+				<div class="row">
+					<div class="col-lg-2 col-lg-offset-1" id="launch-arrow" style="border-style:solid;border-radius:20px;border-color:black;border-width:2px;height:70px;text-align:center;">
+					<p style="padding-top:15px;font-size:30px;">L</p>
+					</div>
+					<div class="col-lg-2 col-lg-offset-2" id="up-arrow" style="border-style:solid;border-radius:20px;border-color:black;border-width:2px;height:70px;text-align:center;">
+					<p style="padding-top:15px;font-size:30px;">^</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-2 col-lg-offset-3" id="left-arrow" style="border-style:solid;border-radius:20px;border-color:black;border-width:2px;height:70px;text-align:center;">
+						<p style="padding-top:15px;font-size:30px;"><</p>
+					</div>
+					<div class="col-lg-2" id="down-arrow" style="border-style:solid;border-radius:20px;border-color:black;border-width:2px;height:70px;text-align:center;">
+						<p style="padding-top:15px;font-size:30px;">-</p>
+					</div>
+					<div class="col-lg-2" id="right-arrow" style="border-style:solid;border-radius:20px;border-color:black;border-width:2px;height:70px;text-align:center;">
+						<p style="padding-top:15px;font-size:30px;">></p>
+					</div>
+				</div>
 		    </div>
-		    <div class="col-lg-6" style="padding-left:40px;padding-top:50px;">
+		    <div class="col-lg-6" style="padding-left:40px;">
 				<h3>Account #: 3749818</h3>
-				<h3>Connection status: good</h3>
-                <h3>Device battery: 69%</h3>
-                <h3>Estimated battery time: 27min</h3>
-                <br/>
+				<br/>
                 <h4>Instruction:</h4> 
                 <h4>Please use keyboard or joystick to control the robot</h4>
+                <ul id="key-log"></ul>
 		    </div>
 
 		</div>
 	</div>
 
-	
-
 <script src="{% static 'js/jQuery-2.1.4.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+<!--
+<script>
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return; // Do nothing if the event was already processed
+  }
+
+  switch (event.key) {
+    case "ArrowDown":
+      	$("#key-log").append('<li id="down-key" style="color:red;">Move Backward command has been sent</li>');
+      	$("#down-arrow").css('background-color', 'red');
+     
+      break;
+    case "ArrowUp":
+      
+      	$("#key-log").append('<li id="up-key" style="color:red;">Move Forward command has been sent</li>');
+      	$("#up-arrow").css('background-color', 'red');
+      
+      break;
+    case "ArrowLeft":
+      
+       $("#key-log").append('<li id="left-key" style="color:red;">Turn Left command has been sent</li>');
+       $("#left-arrow").css('background-color', 'red');
+      
+      break;
+    case "ArrowRight":
+      
+        $("#key-log").append('<li id="right-key" style="color:red;">Turn Right command has been sent</li>');
+        $("#right-arrow").css('background-color', 'red');
+  	  
+      break;
+    case "l":
+      
+      	$("#key-log").append('<li id="launch-key" style="color:red;">Launch Treat command has been sent</li>');
+      	$("#launch-arrow").css('background-color', 'red');
+      
+      break;
+    default:
+      return; // Quit when this doesn't handle the key event.
+  }
+
+  // Cancel the default action to avoid it being handled twice
+  event.preventDefault();
+}, true);
+// the last option dispatches the event to the listener first,
+// then dispatches event to window
+
+window.addEventListener("keyup", function (event) {
+  if (event.defaultPrevented) {
+    return; // Do nothing if the event was already processed
+  }
+
+  switch (event.key) {
+    case "ArrowDown":
+      $("#key-log").empty();
+      $("#down-arrow").css('background-color', 'white');
+      break;
+    case "ArrowUp":
+      $("#key-log").empty();
+      $("#up-arrow").css('background-color', 'white');
+      break;
+    case "ArrowLeft":
+      $("#key-log").empty();
+      $("#left-arrow").css('background-color', 'white');
+      break;
+    case "ArrowRight":
+      $("#key-log").empty();
+      $("#right-arrow").css('background-color', 'white');
+      break;
+    case "l":
+      $("#key-log").empty();
+      $("#launch-arrow").css('background-color', 'white');
+      break;
+    default:
+      return; // Quit when this doesn't handle the key event.
+  }
+
+  // Cancel the default action to avoid it being handled twice
+  event.preventDefault();
+}, true);
+// the last option dispatches the event to the listener first,
+// then dispatches event to window
+
+</script>
+-->
+
+
+<script>
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return; // Do nothing if the event was already processed
+  }
+
+  switch (event.key) {
+    case "ArrowDown":
+      if ($("#down-key").length === 0) {
+      	$("#key-log").append('<li id="down-key" style="color:red;">Move Backward command has been sent</li>');
+      	$("#down-arrow").css('background-color', 'red');
+      }
+      break;
+    case "ArrowUp":
+      if ($("#up-key").length === 0) {
+      	$("#key-log").append('<li id="up-key" style="color:red;">Move Forward command has been sent</li>');
+      	$("#up-arrow").css('background-color', 'red');
+      }
+      break;
+    case "ArrowLeft":
+      if ($("#left-key").length === 0) {
+       $("#key-log").append('<li id="left-key" style="color:red;">Turn Left command has been sent</li>');
+       $("#left-arrow").css('background-color', 'red');
+      }
+      break;
+    case "ArrowRight":
+      if ($("#right-key").length === 0) {
+        $("#key-log").append('<li id="right-key" style="color:red;">Turn Right command has been sent</li>');
+        $("#right-arrow").css('background-color', 'red');
+  	  }
+      break;
+    case "l":
+      if ($("#launch-key").length === 0) {
+      	$("#key-log").append('<li id="launch-key" style="color:red;">Launch Treat command has been sent</li>');
+      	$("#launch-arrow").css('background-color', 'red');
+      }
+      break;
+    default:
+      return; // Quit when this doesn't handle the key event.
+  }
+
+  // Cancel the default action to avoid it being handled twice
+  event.preventDefault();
+}, true);
+// the last option dispatches the event to the listener first,
+// then dispatches event to window
+
+window.addEventListener("keyup", function (event) {
+  if (event.defaultPrevented) {
+    return; // Do nothing if the event was already processed
+  }
+
+  switch (event.key) {
+    case "ArrowDown":
+      var elem = document.getElementById('down-key');
+      elem.parentNode.removeChild(elem);
+      $("#down-arrow").css('background-color', 'white');
+      break;
+    case "ArrowUp":
+      var elem = document.getElementById('up-key');
+      elem.parentNode.removeChild(elem);
+      $("#up-arrow").css('background-color', 'white');
+      break;
+    case "ArrowLeft":
+      var elem = document.getElementById('left-key');
+      elem.parentNode.removeChild(elem);
+      $("#left-arrow").css('background-color', 'white');
+      break;
+    case "ArrowRight":
+      var elem = document.getElementById('right-key');
+      elem.parentNode.removeChild(elem);
+      $("#right-arrow").css('background-color', 'white');
+      break;
+    case "l":
+      var elem = document.getElementById('launch-key');
+      elem.parentNode.removeChild(elem);
+      $("#launch-arrow").css('background-color', 'white');
+      break;
+    default:
+      return; // Quit when this doesn't handle the key event.
+  }
+
+  // Cancel the default action to avoid it being handled twice
+  event.preventDefault();
+}, true);
+// the last option dispatches the event to the listener first,
+// then dispatches event to window
+
+</script>
 
 </body>
 
