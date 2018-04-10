@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import sys
 
 PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__)) + '/'
 
