@@ -78,94 +78,58 @@
 <script src="{% static 'js/jQuery-2.1.4.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
-<!--
 <script>
-window.addEventListener("keydown", function (event) {
-  if (event.defaultPrevented) {
-    return; // Do nothing if the event was already processed
+
+var command = [];
+
+function addCommand(newLetter) {
+  if (command.length > 2) {
+    window.alert("command length > 2!");
+    return;
   }
-
-  switch (event.key) {
-    case "ArrowDown":
-      	$("#key-log").append('<li id="down-key" style="color:red;">Move Backward command has been sent</li>');
-      	$("#down-arrow").css('background-color', 'red');
-     
-      break;
-    case "ArrowUp":
-      
-      	$("#key-log").append('<li id="up-key" style="color:red;">Move Forward command has been sent</li>');
-      	$("#up-arrow").css('background-color', 'red');
-      
-      break;
-    case "ArrowLeft":
-      
-       $("#key-log").append('<li id="left-key" style="color:red;">Turn Left command has been sent</li>');
-       $("#left-arrow").css('background-color', 'red');
-      
-      break;
-    case "ArrowRight":
-      
-        $("#key-log").append('<li id="right-key" style="color:red;">Turn Right command has been sent</li>');
-        $("#right-arrow").css('background-color', 'red');
-  	  
-      break;
-    case "l":
-      
-      	$("#key-log").append('<li id="launch-key" style="color:red;">Launch Treat command has been sent</li>');
-      	$("#launch-arrow").css('background-color', 'red');
-      
-      break;
-    default:
-      return; // Quit when this doesn't handle the key event.
+  if (command.length == 0) {
+    command.push(newLetter);
+    sendCommand();
+  } else {
+    var currentCommand = command[0];
+    if ((currentCommand == 'F' && newLetter == 'B') || (currentCommand == 'B' && newLetter == 'F')) {
+      return;
+    }
+    if ((currentCommand == 'L' && newLetter == 'R') || (currentCommand == 'R' && newLetter == 'L')) {
+      return;
+    }
+    command.push(newLetter);
+    sendCommand();
   }
+  return;
+}
 
-  // Cancel the default action to avoid it being handled twice
-  event.preventDefault();
-}, true);
-// the last option dispatches the event to the listener first,
-// then dispatches event to window
-
-window.addEventListener("keyup", function (event) {
-  if (event.defaultPrevented) {
-    return; // Do nothing if the event was already processed
+function releaseCommand(letter) {
+  if (command.length == 0 || command.length > 2) {
+    window.alert("command length == 0 or > 2!");
+    return;
   }
+  const index = array.indexOf(letter);
+    if (index == -1) {
+      window.alert("key to be released not found!");
+      return;
+    } else {
+      command.splice(index, 1);
+      sendCommand();
+    }
+}
 
-  switch (event.key) {
-    case "ArrowDown":
-      $("#key-log").empty();
-      $("#down-arrow").css('background-color', 'white');
-      break;
-    case "ArrowUp":
-      $("#key-log").empty();
-      $("#up-arrow").css('background-color', 'white');
-      break;
-    case "ArrowLeft":
-      $("#key-log").empty();
-      $("#left-arrow").css('background-color', 'white');
-      break;
-    case "ArrowRight":
-      $("#key-log").empty();
-      $("#right-arrow").css('background-color', 'white');
-      break;
-    case "l":
-      $("#key-log").empty();
-      $("#launch-arrow").css('background-color', 'white');
-      break;
-    default:
-      return; // Quit when this doesn't handle the key event.
+function sendCommand() {
+  var commandString = "";
+  for (var elem in command) {
+    commandString += command[elem];
   }
+  console.log("sent: ", commandString)
+  //$.get("sendcommand/" + commandString + "/", function(data, status){
+    //console.log("Data: " + data + "\nStatus: " + status);
+  //});
+}
 
-  // Cancel the default action to avoid it being handled twice
-  event.preventDefault();
-}, true);
-// the last option dispatches the event to the listener first,
-// then dispatches event to window
-
-</script>
--->
-
-
-<script>
 window.addEventListener("keydown", function (event) {
   if (event.defaultPrevented) {
     return; // Do nothing if the event was already processed
@@ -176,30 +140,35 @@ window.addEventListener("keydown", function (event) {
       if ($("#down-key").length === 0) {
       	$("#key-log").append('<li id="down-key" style="color:red;">Move Backward command has been sent</li>');
       	$("#down-arrow").css('background-color', 'red');
+        addCommand("B");
       }
       break;
     case "ArrowUp":
       if ($("#up-key").length === 0) {
       	$("#key-log").append('<li id="up-key" style="color:red;">Move Forward command has been sent</li>');
       	$("#up-arrow").css('background-color', 'red');
+        addCommand("F");
       }
       break;
     case "ArrowLeft":
       if ($("#left-key").length === 0) {
        $("#key-log").append('<li id="left-key" style="color:red;">Turn Left command has been sent</li>');
        $("#left-arrow").css('background-color', 'red');
+       addCommand("L");
       }
       break;
     case "ArrowRight":
       if ($("#right-key").length === 0) {
         $("#key-log").append('<li id="right-key" style="color:red;">Turn Right command has been sent</li>');
         $("#right-arrow").css('background-color', 'red');
+        addCommand("R");
   	  }
       break;
     case "l":
       if ($("#launch-key").length === 0) {
       	$("#key-log").append('<li id="launch-key" style="color:red;">Launch Treat command has been sent</li>');
       	$("#launch-arrow").css('background-color', 'red');
+        addCommand("L");
       }
       break;
     default:
@@ -222,26 +191,31 @@ window.addEventListener("keyup", function (event) {
       var elem = document.getElementById('down-key');
       elem.parentNode.removeChild(elem);
       $("#down-arrow").css('background-color', 'white');
+      releaseCommand("B");
       break;
     case "ArrowUp":
       var elem = document.getElementById('up-key');
       elem.parentNode.removeChild(elem);
       $("#up-arrow").css('background-color', 'white');
+      releaseCommand("F");
       break;
     case "ArrowLeft":
       var elem = document.getElementById('left-key');
       elem.parentNode.removeChild(elem);
       $("#left-arrow").css('background-color', 'white');
+      releaseCommand("L");
       break;
     case "ArrowRight":
       var elem = document.getElementById('right-key');
       elem.parentNode.removeChild(elem);
       $("#right-arrow").css('background-color', 'white');
+      releaseCommand("R");
       break;
     case "l":
       var elem = document.getElementById('launch-key');
       elem.parentNode.removeChild(elem);
       $("#launch-arrow").css('background-color', 'white');
+      releaseCommand("L");
       break;
     default:
       return; // Quit when this doesn't handle the key event.
