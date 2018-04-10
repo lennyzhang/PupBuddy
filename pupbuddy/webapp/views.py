@@ -16,7 +16,7 @@ def register(request):
     context = {}
     if request.method == "GET":
         context["form"] = RegistrationForm()
-        return render(request, "Register.html", context)
+        return render(request, "register.html", context)
     form = RegistrationForm(request.POST, request.FILES)
     context["form"] = form
     if not form.is_valid():
@@ -31,3 +31,14 @@ def register(request):
     new_user = authenticate(username = form.cleaned_data["username"], password = form.cleaned_data["password1"])
     login(request, new_user)
     return redirect('main')
+
+def receive_command(request):
+    context = {}
+    command = request.GET.['command']
+    if (command == ""):
+        #balabala
+    else if (command == ""):
+        #balabala
+        
+    
+    return HttpResponse('')

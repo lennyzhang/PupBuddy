@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^register$', views.register, name="register"),
     url(r'^$', login, {'template_name':'login.html'}, name='login'),
     url(r'^logout$', logout_then_login, name='logout'),
+    url(r'^sendcommand/(?P<command>[A-Z]+)/$', views.receive_command, name='receive_command'),
 ]
