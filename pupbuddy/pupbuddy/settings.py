@@ -1,3 +1,5 @@
+
+
 """
 Django settings for pupbuddy project.
 
@@ -26,9 +28,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'qkjna4d7=-5*ei$8(4fvzm3)pdkk3z9y7xw+l$k=kw-&(ich6('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['raspberrypi']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -125,5 +127,5 @@ MEDIA_URL = '/media/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-STATIC_ROOT = PROJECT_ROOT + 'static/'
+STATIC_ROOT = '/home/pi/Desktop/webapp/Pupbuddy/pupbuddy/webapp/static/'
 STATIC_URL = '/static/'

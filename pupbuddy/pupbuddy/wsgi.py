@@ -8,7 +8,7 @@ https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/
 """
 
 import os
-
+import sys
 sys.path.append('/home/pi/Desktop/webapp/Pupbuddy/pupbuddy/pupbuddy')
 sys.path.append('/home/pi/Desktop/webapp/Pupbuddy/pupbuddy')
 
