@@ -20,7 +20,7 @@ def register(request):
     form = RegistrationForm(request.POST, request.FILES)
     context["form"] = form
     if not form.is_valid():
-        return render(request, "Register.html", context)
+        return render(request, "register.html", context)
     new_user = User.objects.create_user(username = form.cleaned_data["username"], password = form.cleaned_data["password1"])
     new_user.save()
     user = Profile.objects.create(
