@@ -114,10 +114,7 @@ function releaseCommand(letter) {
     return;
   }
   const index = command.indexOf(letter);
-    if (index == -1) {
-      window.alert("key to be released not found!");
-      return;
-    } else {
+    if (index != -1) {
       command.splice(index, 1);
       sendCommand();
     }
