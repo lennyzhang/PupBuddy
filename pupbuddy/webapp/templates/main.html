@@ -109,10 +109,6 @@ function addCommand(newLetter) {
 
 function releaseCommand(letter) {
   console.log(letter);
-  if (command.length == 0 || command.length > 2) {
-    window.alert("command length == 0 or > 2!");
-    return;
-  }
   const index = command.indexOf(letter);
     if (index != -1) {
       command.splice(index, 1);
