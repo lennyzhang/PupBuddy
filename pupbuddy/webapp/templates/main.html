@@ -83,6 +83,7 @@
 var command = [];
 
 function addCommand(newLetter) {
+  console.log(newLetter);
   if (command.length > 2) {
     window.alert("command length > 2!");
     return;
@@ -105,6 +106,7 @@ function addCommand(newLetter) {
 }
 
 function releaseCommand(letter) {
+  console.log(letter);
   if (command.length == 0 || command.length > 2) {
     window.alert("command length == 0 or > 2!");
     return;
