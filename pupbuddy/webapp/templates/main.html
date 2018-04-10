@@ -91,6 +91,8 @@ function addCommand(newLetter) {
   if (command.length == 0) {
     command.push(newLetter);
     sendCommand();
+  } else if (command.length == 2) {
+    return;
   } else {
     var currentCommand = command[0];
     if ((currentCommand == 'F' && newLetter == 'B') || (currentCommand == 'B' && newLetter == 'F')) {
