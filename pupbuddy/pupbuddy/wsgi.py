@@ -9,6 +9,10 @@ https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/
 
 import os
 
+sys.path.append('/home/pi/Desktop/webapp/Pupbuddy/pupbuddy/pupbuddy')
+sys.path.append('/home/pi/Desktop/webapp/Pupbuddy/pupbuddy')
+
+
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pupbuddy.settings")
