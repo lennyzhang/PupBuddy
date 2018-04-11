@@ -34,11 +34,11 @@ def register(request):
 
 def receive_command(request):
     context = {}
-    command = request.GET.['command']
+    command = request.GET['command']
     if (command == ""):
-        #balabala
-    else if (command == ""):
-        #balabala
-        
-    
+        return
+        #do something instead of return
+    elif (command == "somethingelse"):
+        return
+        #do something instead of return
     return HttpResponse('')
