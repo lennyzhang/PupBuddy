@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from webapp.models import *
 from webapp.forms import *
+from motorControl import PupBuddy
 
 # Create your views here.
 
@@ -32,13 +33,20 @@ def register(request):
     login(request, new_user)
     return redirect('main')
 
+robot = PupBuddy()
+
 def receive_command(request):
     context = {}
     command = request.GET['command']
     if (command == ""):
+        print("Stop")
+        robot.dcStop();
         return
         #do something instead of return
-    elif (command == "somethingelse"):
+    elif (command == "F"):
+        print("Forward")
+        robot.dcForward()
         return
         #do something instead of return
     return HttpResponse('')
+
