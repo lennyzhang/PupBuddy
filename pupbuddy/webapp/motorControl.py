@@ -48,8 +48,8 @@ class PupBuddy:
         self.mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
 
     def dcForward(self):
-        self.left.setSpeed(50)
-        self.right.setSpeed(50)
+        self.left.setSpeed(100)
+        self.right.setSpeed(100)
         self.left.run(Adafruit_MotorHAT.FORWARD)
         self.right.run(Adafruit_MotorHAT.FORWARD)
 
