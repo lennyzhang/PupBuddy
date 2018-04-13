@@ -56,7 +56,13 @@ class PupBuddy:
     def dcForLeft(self):
         self.left.setSpeed(25)
         self.right.setSpeed(75)
-        self.self.left.run(Adafruit_MotorHAT.FORWARD)
+        self.left.run(Adafruit_MotorHAT.FORWARD)
+        self.right.run(Adafruit_MotorHAT.FORWARD)
+
+    def dcTurnLeft(self):
+        self.left.setSpeed(25)
+        self.right.setSpeed(25)
+        self.left.run(Adafruit_MotorHAT.BACKWARD)
         self.right.run(Adafruit_MotorHAT.FORWARD)
 
     def dcForRight(self):
@@ -64,6 +70,12 @@ class PupBuddy:
         self.right.setSpeed(25)
         self.left.run(Adafruit_MotorHAT.FORWARD)
         self.right.run(Adafruit_MotorHAT.FORWARD)
+
+    def dcTurnRight(self):
+        self.left.setSpeed(25)
+        self.right.setSpeed(25)
+        self.left.run(Adafruit_MotorHAT.FORWARD)
+        self.right.run(Adafruit_MotorHAT.BACKWARD)
 
     def dcBackward(self):
         self.left.setSpeed(30)

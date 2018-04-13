@@ -47,6 +47,19 @@ def receive_command(request):
         print("Forward")
         robot.dcForward()
         return
+    elif (command == "B"):
+        print("Backward")
+        robot.dcBackward()
+    elif (command == "L"):
+        print("Turn Left")
+        robot.dcTurnLeft()
+    elif (command == "R"):
+        print("Turn Right")
+        robot.dcTurnRight()
+    elif (command == "LF" || command == "FL"):
+        print("Forward & Left")
+        robot.dcForLeft()
+
         #do something instead of return
     return HttpResponse('')
 
