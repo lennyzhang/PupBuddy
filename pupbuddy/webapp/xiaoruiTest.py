@@ -1,6 +1,6 @@
 import sys
 sys.path.append('/home/pi/Desktop/webapp/Pupbuddy/pupbuddy/webapp')
-from motorControl import *
+from motorControl import Pupbuddy
 import time
 
 robot = Pupbuddy()
