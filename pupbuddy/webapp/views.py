@@ -4,7 +4,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from webapp.models import *
 from webapp.forms import *
-from motorControl import PupBuddy
+import sys
+sys.path.append('/home/pi/Desktop/webapp/Pupbuddy/pupbuddy/webapp')
+from motorControl import *
 
 # Create your views here.
 
@@ -45,7 +47,7 @@ def receive_command(request):
         #do something instead of return
     elif (command == "F"):
         print("Forward")
-        robot.dcForward()
+        #robot.dcForward()
         return
     elif (command == "B"):
         print("Backward")
@@ -56,10 +58,9 @@ def receive_command(request):
     elif (command == "R"):
         print("Turn Right")
         robot.dcTurnRight()
-    elif (command == "LF" || command == "FL"):
+    elif (command == "LF" or command == "FL"):
         print("Forward & Left")
         robot.dcForLeft()
-
         #do something instead of return
     return HttpResponse('')
 
