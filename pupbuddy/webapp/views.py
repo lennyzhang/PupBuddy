@@ -33,9 +33,9 @@ def register(request):
     login(request, new_user)
     return redirect('main')
 
-robot = PupBuddy()
 
 def receive_command(request):
+    robot = PupBuddy()
     context = {}
     command = request.GET['command']
     if (command == ""):
