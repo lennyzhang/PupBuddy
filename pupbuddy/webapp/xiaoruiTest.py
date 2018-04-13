@@ -1,9 +1,9 @@
 import sys
 sys.path.append('/home/pi/Desktop/webapp/Pupbuddy/pupbuddy/webapp')
-from motorControl import Pupbuddy
+from motorControl import PupBuddy
 import time
 
-robot = Pupbuddy()
+robot = PupBuddy()
 
 cmd = input("One Letter Command")
 print("you have endtered" + str(cmd))

@@ -15,30 +15,30 @@ GPIO.setwarnings(False) # turn off warnings of different mode config
 """
 class PupBuddy:
     """ CMU S18 24-671 Team:TBD PupBuddy """
-    launchFreq = 50 # Hz
-    launchPin = 18 # GPIO
-    treatFreq = 30
-    treatPin = 22
     def __init__(self):
-        GPIO.Cleanup()
+        self.launchFreq = 50 # Hz
+        self.launchPin = 18 # GPIO
+        self.treatFreq = 30
+        self.treatPin = 22
+        GPIO.cleanup()
         GPIO.setmode(GPIO.BOARD) # use Pin numbering on the Rpi Board
-        GPIO.setup(launchPin,GPIO.OUT)
-        GPIO.setup(treatPin, GPIO.OUT)
+        GPIO.setup(self.launchPin,GPIO.OUT)
+        GPIO.setup(self.treatPin, GPIO.OUT)
         # create a default object, no changes to I2C address or frequency
         self.mh = Adafruit_MotorHAT(addr=0x60) # username, password ??
         atexit.register(self.dcStop())
 
         # DC motors - subject to changes
-        self.left = mh.getMotor(2)
-        self.right = mh.getMotor(1)
+        self.left = self.mh.getMotor(2)
+        self.right = self.mh.getMotor(1)
         self.left.setSpeed(0)
         self.right.setSpeed(0)
         self.left.run(Adafruit_MotorHAT.RELEASE)
         self.right.run(Adafruit_MotorHAT.RELEASE)
         # launcher 
-        self.launcher = GPIO.PWM(launchPin,launchFreq)
+        self.launcher = GPIO.PWM(self.launchPin,self.launchFreq)
         # treatLoader
-        self.treatLoader = GPIO.PWM(treatPin, treatFreq)
+        self.treatLoader = GPIO.PWM(self.treatPin, self.treatFreq)
 
 # recommended for auto-disabling motors on shutdown!
     def dcStop(self):
