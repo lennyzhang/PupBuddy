@@ -1,16 +1,29 @@
 import RPi.GPIO as GPIO
+# https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/
 import time
-
 import sys
 sys.path.append('/home/pi/Adafruit-Motor-HAT-Python-Library')
 
 from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
 #https://media.readthedocs.org/pdf/adafruit-motor-hat/latest/adafruit-motor-hat.pdf
 import atexit
+GPIO.setwarnings(False) # turn off warnings of different mode config
 
+"""
+    Need to figure out turn on and off the robot?
+    Need to wait for some time for physical systems to reacti? delay the program?
+"""
 class PupBuddy:
     """ CMU S18 24-671 Team:TBD PupBuddy """
+    launchFreq = 50 # Hz
+    launchPin = 18 # GPIO
+    treatFreq = 30
+    treatPin = 22
     def __init__(self):
+        GPIO.Cleanup()
+        GPIO.setmode(GPIO.BOARD) # use Pin numbering on the Rpi Board
+        GPIO.setup(launchPin,GPIO.OUT)
+        GPIO.setup(treatPin, GPIO.OUT)
         # create a default object, no changes to I2C address or frequency
         self.mh = Adafruit_MotorHAT(addr=0x60) # username, password ??
         atexit.register(self.dcStop())
@@ -23,7 +36,9 @@ class PupBuddy:
         self.left.run(Adafruit_MotorHAT.RELEASE)
         self.right.run(Adafruit_MotorHAT.RELEASE)
         # launcher 
+        self.launcher = GPIO.PWM(launchPin,launchFreq)
         # treatLoader
+        self.treatLoader = GPIO.PWM(treatPin, treatFreq)
 
 # recommended for auto-disabling motors on shutdown!
     def dcStop(self):
@@ -31,8 +46,6 @@ class PupBuddy:
         self.mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
         self.mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
         self.mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
-    #    p.stop()
-        GPIO.cleanup()
 
     def dcForward(self):
         self.left.setSpeed(50)
@@ -70,6 +83,15 @@ class PupBuddy:
         self.left.run(Adafruit_MotorHAT.BACKWARD)
         self.right.run(Adafruit_MotorHAT.BACKWARD)
 
+    def launchStop(self):
+        self.launcher.stop();
+
+    def launchTreat(self):
+        self.launcher.start(12.5)# duty cycle [0,100] in %
+
+
+    def treatStop():
+        self.treat.stop();
 
 
 #GPIO.setmode(GPIO.BOARD)
