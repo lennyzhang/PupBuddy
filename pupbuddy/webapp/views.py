@@ -7,6 +7,7 @@ from webapp.forms import *
 import sys
 sys.path.append('/home/pi/Desktop/webapp/Pupbuddy/pupbuddy/webapp')
 from motorControl import *
+from django.shortcuts import HttpResponse
 
 # Create your views here.
 
