@@ -34,7 +34,7 @@ def register(request):
     user.save()
     new_user = authenticate(username = form.cleaned_data["username"], password = form.cleaned_data["password1"])
     login(request, new_user)
-    return redirect('main')
+    return redirect('receive_command')
 
 
 def receive_command(request):
