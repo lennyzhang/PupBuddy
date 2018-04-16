@@ -14,20 +14,6 @@ from django.shortcuts import HttpResponse
 @login_required
 def main(request):
     context = {}
-    robot = PupBuddy()
-    command = request.GET['command']
-    if (command == ""):
-        print("Stop")
-        robot.dcStop();
-        return
-        #do something instead of return
-    elif (command == "F"):
-        print("Forward")
-        #robot.dcForward()
-        return
-    elif (command == "B"):
-        print("Backward")
-        robot.dcBackward()
     return render(request, "main.html", context)
     
 def register(request):
