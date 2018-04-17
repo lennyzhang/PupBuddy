@@ -121,10 +121,13 @@ function sendCommand() {
   for (var elem in command) {
     commandString += command[elem];
   }
+  if (commandString == "") {
+  	commandString += "S";
+  }
   console.log("sent: ", commandString)
-  //$.get("sendcommand/" + commandString + "/", function(data, status){
-    //console.log("Data: " + data + "\nStatus: " + status);
-  //});
+  $.get("sendcommand/" + commandString + "/", function(data, status){
+    console.log("Data: " + data + "\nStatus: " + status);
+  });
 }
 
 window.addEventListener("keydown", function (event) {
