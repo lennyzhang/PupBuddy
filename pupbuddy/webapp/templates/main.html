@@ -213,6 +213,7 @@ var mjpeg_img;
  
 function reload_img () {
   mjpeg_img.src = "128.237.247.17:8000/html/cam_pic.php?time=" + new Date().getTime();
+  console.log(mjpeg_img.src)
 }
 function error_img () {
   setTimeout("mjpeg_img.src = '128.237.247.17:8000/html/cam_pic.php?time=' + new Date().getTime();", 100);
