@@ -1,8 +1,8 @@
 import RPi.GPIO as GPIO
 # https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/
 import time
-import sys
-sys.path.append('/home/pi/Adafruit-Motor-HAT-Python-Library')
+#import sys
+#sys.path.append('/home/pi/Adafruit-Motor-HAT-Python-Library')
 
 from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
 #https://media.readthedocs.org/pdf/adafruit-motor-hat/latest/adafruit-motor-hat.pdf
@@ -26,7 +26,7 @@ class PupBuddy:
         GPIO.setup(self.treatPin, GPIO.OUT)
         # create a default object, no changes to I2C address or frequency
         self.mh = Adafruit_MotorHAT(addr=0x60) # username, password ??
-        atexit.register(self.dcStop())
+        atexit.register(self.dcStop)
 
         # DC motors - subject to changes
         self.left = self.mh.getMotor(2)
@@ -48,8 +48,10 @@ class PupBuddy:
         self.mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
 
     def dcForward(self):
-        self.left.setSpeed(100)
-        self.right.setSpeed(100)
+
+        self.left.setSpeed(75)
+        self.right.setSpeed(75)
+
         self.left.run(Adafruit_MotorHAT.FORWARD)
         self.right.run(Adafruit_MotorHAT.FORWARD)
 
