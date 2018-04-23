@@ -211,7 +211,7 @@ window.addEventListener("keyup", function (event) {
 var mjpeg_img;
  
 function reload_img () {
-  mjpeg_img.src = "/128.237.247.17:8000/html/cam_pic.php?time=" + new Date().getTime();
+  mjpeg_img.src = ":8000/html/cam_pic.php?time=" + new Date().getTime();
 }
 function error_img () {
   setTimeout("mjpeg_img.src = '/128.237.247.17:8000/html/cam_pic.php?time=' + new Date().getTime();", 100);
