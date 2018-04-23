@@ -16,7 +16,7 @@
 
 </head>
 
-<body>
+<body onload="setTimeout('init();', 100);">
 	<nav class=" navbar navbar-default navbar-fixed-top" style="border:0px;background-color:rgb(60,141,188);height:70px;">
 
 		<div class="container">
@@ -43,10 +43,7 @@
 	<div class="container" style="padding-top:100px;">
 		<div class="row">
 			<div class="col-lg-5 col-lg-offset-1" style="border-style:solid;border-color:black;border-width:5px;height:400px;text-align:center;">
-				<video width="400" height="400" autoplay>
-  					<source src="http://128.237.247.17:8000/html/?action=stream" type="video/mp4">
-					Your browser does not support the video tag.
-				</video>
+				<div><img id="mjpeg_dest" /></div>
 		    </div>
 		    <div class="col-lg-6" style="padding-left:40px;">
 				<h3>Account #: 3749818</h3>
@@ -210,6 +207,21 @@ window.addEventListener("keyup", function (event) {
 }, true);
 // the last option dispatches the event to the listener first,
 // then dispatches event to window
+
+var mjpeg_img;
+ 
+function reload_img () {
+  mjpeg_img.src = "cam_pic.php?time=" + new Date().getTime();
+}
+function error_img () {
+  setTimeout("mjpeg_img.src = 'cam_pic.php?time=' + new Date().getTime();", 100);
+}
+function init() {
+  mjpeg_img = document.getElementById("mjpeg_dest");
+  mjpeg_img.onload = reload_img;
+  mjpeg_img.onerror = error_img;
+  reload_img();
+}
 
 </script>
 
