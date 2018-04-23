@@ -43,12 +43,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webapp',
+    'corsheaders'
 ]
 
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = 'main'
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,6 +59,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ORIGIN_WHITELIST = (
+    '128.237.247.17:8000',
+)
 
 ROOT_URLCONF = 'pupbuddy.urls'
 
@@ -127,5 +135,8 @@ MEDIA_URL = '/media/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
+
+#STATIC_ROOT = PROJECT_ROOT + 'static/'
 STATIC_ROOT = '/home/pi/Desktop/webapp/Pupbuddy/pupbuddy/webapp/static/'
+
 STATIC_URL = '/static/'
