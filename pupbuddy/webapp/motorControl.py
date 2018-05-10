@@ -17,28 +17,21 @@ class PupBuddy:
     """ CMU S18 24-671 Team:TBD PupBuddy """
     def __init__(self):
         self.launchFreq = 50 # Hz
-        self.launchPin = 18 # GPIO
-        self.treatFreq = 30
-        self.treatPin = 22
+        self.launchPin = 12 # GPIO
+        self.treatFreq = 50
+        self.treatPin = 16
         GPIO.cleanup()
-        GPIO.setmode(GPIO.BOARD) # use Pin numbering on the Rpi Board
-        GPIO.setup(self.launchPin,GPIO.OUT)
-        GPIO.setup(self.treatPin, GPIO.OUT)
         # create a default object, no changes to I2C address or frequency
         self.mh = Adafruit_MotorHAT(addr=0x60) # username, password ??
         atexit.register(self.dcStop)
 
         # DC motors - subject to changes
-        self.left = self.mh.getMotor(2)
-        self.right = self.mh.getMotor(1)
+        self.left = self.mh.getMotor(1)
+        self.right = self.mh.getMotor(2)
         self.left.setSpeed(0)
         self.right.setSpeed(0)
         self.left.run(Adafruit_MotorHAT.RELEASE)
         self.right.run(Adafruit_MotorHAT.RELEASE)
-        # launcher 
-        self.launcher = GPIO.PWM(self.launchPin,self.launchFreq)
-        # treatLoader
-        self.treatLoader = GPIO.PWM(self.treatPin, self.treatFreq)
 
 # recommended for auto-disabling motors on shutdown!
     def dcStop(self):
@@ -49,80 +42,82 @@ class PupBuddy:
 
     def dcForward(self):
 
-        self.left.setSpeed(75)
-        self.right.setSpeed(75)
+        self.left.setSpeed(100)
+        self.right.setSpeed(100)
 
         self.left.run(Adafruit_MotorHAT.FORWARD)
         self.right.run(Adafruit_MotorHAT.FORWARD)
 
     def dcForLeft(self):
-        self.left.setSpeed(25)
-        self.right.setSpeed(75)
+        self.left.setSpeed(75)
+        self.right.setSpeed(100)
         self.left.run(Adafruit_MotorHAT.FORWARD)
         self.right.run(Adafruit_MotorHAT.FORWARD)
 
     def dcTurnLeft(self):
-        self.left.setSpeed(25)
-        self.right.setSpeed(25)
+        self.left.setSpeed(100)
+        self.right.setSpeed(100)
         self.left.run(Adafruit_MotorHAT.BACKWARD)
         self.right.run(Adafruit_MotorHAT.FORWARD)
 
     def dcForRight(self):
-        self.left.setSpeed(75)
-        self.right.setSpeed(25)
+        self.left.setSpeed(100)
+        self.right.setSpeed(75)
         self.left.run(Adafruit_MotorHAT.FORWARD)
         self.right.run(Adafruit_MotorHAT.FORWARD)
 
     def dcTurnRight(self):
-        self.left.setSpeed(25)
-        self.right.setSpeed(25)
+        self.left.setSpeed(100)
+        self.right.setSpeed(100)
         self.left.run(Adafruit_MotorHAT.FORWARD)
         self.right.run(Adafruit_MotorHAT.BACKWARD)
 
     def dcBackward(self):
-        self.left.setSpeed(30)
-        self.right.setSpeed(30)
-        self.left.run(Adafruit_MotorHAT.BACKWARD)
-        self.right.run(Adafruit_MotorHAT.BACKWARD)
-
-    def dcBackLeft(self):
-        self.left.setSpeed(25)
+        self.left.setSpeed(75)
         self.right.setSpeed(75)
         self.left.run(Adafruit_MotorHAT.BACKWARD)
         self.right.run(Adafruit_MotorHAT.BACKWARD)
 
-    def dcBackRight(self):
+    def dcBackLeft(self):
         self.left.setSpeed(75)
-        self.right.setSpeed(25)
+        self.right.setSpeed(100)
         self.left.run(Adafruit_MotorHAT.BACKWARD)
         self.right.run(Adafruit_MotorHAT.BACKWARD)
 
-    def launchStop(self):
-        self.launcher.stop();
+    def dcBackRight(self):
+        self.left.setSpeed(100)
+        self.right.setSpeed(75)
+        self.left.run(Adafruit_MotorHAT.BACKWARD)
+        self.right.run(Adafruit_MotorHAT.BACKWARD)
 
     def launchTreat(self):
-        self.launcher.start(12.5)# duty cycle [0,100] in %
+        print("IN METHOD")
+        GPIO.setmode(GPIO.BOARD) # use Pin numbering on the Rpi Board
+        GPIO.setup(self.launchPin,GPIO.OUT)
+        GPIO.setup(self.treatPin, GPIO.OUT)
+        # launcher
+        self.launcher = GPIO.PWM(self.launchPin,self.launchFreq)
+        # treatLoader
+        self.treatLoader = GPIO.PWM(self.treatPin, self.treatFreq)
 
+        #Load Treat
+        self.treatLoader.start(0)
+        self.treatLoader.ChangeDutyCycle(7.6)
+        time.sleep(0.8)
+        self.treatLoader.ChangeDutyCycle(0)
+        time.sleep(0.5)
+        self.treatLoader.ChangeDutyCycle(6.7)  # turn towards 0 degree
+        time.sleep(0.8)
+        self.treatLoader.ChangeDutyCycle(0)
+        self.treatLoader.stop()
+       
+        self.launcher.start(0)
+        self.launcher.ChangeDutyCycle(3)
+        time.sleep(3)
+        self.launcher.ChangeDutyCycle(8)
+        time.sleep(1)
+        self.launcher.ChangeDutyCycle(0)
+        self.launcher.stop()
 
-    def treatStop():
-        self.treat.stop();
-
-
-#GPIO.setmode(GPIO.BOARD)
-
-#GPIO.setup(12, GPIO.OUT)
-
-#p = GPIO.PWM(12, 50)
-
-#p.start(7.5)
-
-    # servo
-   # p.ChangeDutyCycle(7.5)  # turn towards 90 degree
-    #time.sleep(1) # sleep 1 second
-    #p.ChangeDutyCycle(2.5)  # turn towards 0 degree
-    #time.sleep(1) # sleep 1 second
-    #p.ChangeDutyCycle(12.5) # turn towards 180 degree
-    #time.sleep(1) # sleep 1 second
-    #p.stop() 
-
+        GPIO.cleanup()
 

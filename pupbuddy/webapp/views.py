@@ -6,7 +6,7 @@ from webapp.models import *
 from webapp.forms import *
 import sys
 sys.path.append('/home/pi/Desktop/webapp/Pupbuddy/pupbuddy/webapp')
-#from motorControl import *
+from motorControl import *
 from django.shortcuts import HttpResponse
 
 # Create your views here.
@@ -38,41 +38,48 @@ def register(request):
 
 
 def receive_command(request, command):
-    #robot = PupBuddy()
+    robot = PupBuddy()
     context = {}
     if (command == "S"):
         print("Stop")
-        #robot.dcStop();
+        robot.dcStop();
     elif (command == "F"):
         print("Forward")
-        #robot.dcForward()
+        robot.dcForward()
     elif (command == "B"):
         print("Backward")
-        #robot.dcBackward()
+        robot.dcBackward()
     elif (command == "L"):
         print("Left")
-        #robot.dcTurnLeft()
+        robot.dcTurnLeft()
     elif (command == "R"):
         print("Right")
-        #robot.dcTurnRight()
+        robot.dcTurnRight()
     elif (command == "A"):
         print("Launch")
+        robot.launchTreat()
     elif (command == "LF" or command == "FL"):
         print("Forward & Left")
-        #robot.dcForLeft()
+        robot.dcForLeft()
     elif (command == "RF" or command == "FR"):
         print("Forward & Right")
+        robot.dcForRight()
     elif (command == "LB" or command == "BL"):
         print("Backward & Left")
+        robot.dcBackLeft()
     elif (command == "RB" or command == "BR"):
         print("Backward & Right")
+        robot.dcBackRight()
     elif (command == "LA" or command == "AL"):
         print("Left & Launch")
+        robot.dcTurnLeft()
     elif (command == "RA" or command == "AR"):
         print("Right & Launch")
+        robot.dcTurnRight()
     elif (command == "FA" or command == "AF"):
         print("Forward & Launch")
     elif (command == "BA" or command == "AB"):
         print("Backward & Launch")
+        robot.dcForward()
     return HttpResponse('')
 

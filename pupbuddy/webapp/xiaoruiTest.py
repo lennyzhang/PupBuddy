@@ -6,9 +6,11 @@ import time
 robot = PupBuddy()
 
 cmd = input("One Letter Command")
-print("you have endtered" + str(cmd))
+print("you have endtered " + str(cmd))
 if(cmd == 'F'):
-	robot.dcForward()
-	time.sleep(2)
+        print("IN")
+	#robot.dcForward()
+        robot.launchTreat()
+        time.sleep(2)
 else:
 	print("Nothing")
